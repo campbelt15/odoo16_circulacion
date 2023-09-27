@@ -1,0 +1,468 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <!-- Cliente -->
+    <record model="ir.ui.view" id="circulacion.cliente_list">
+      <field name="name">circulacion list</field>
+      <field name="model">circulacion.cliente</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="id" />
+          <field name="name" />
+          <field name="apellido" />
+          <field name="telefono" />
+          <field name="nit" />
+          <field name="empresa" />
+          <field name="canal_distribucion" />
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="circulacion.cliente_form">
+      <field name="name">Cliente Form</field>
+      <field name="model">circulacion.cliente</field>
+      <field name="arch" type="xml">
+        <form string="Circulacion">
+          <div class="modal-content"
+            style="box-shadow: 0px 0px 10px 0px #888888; opacity: 0.7; padding: 20px;">
+            <group>
+              <group>
+                <field name="fotografia" widget="image" options="{'size': (75, 75)}" />
+                <field name="tipo_persona" />
+                <field name="name" placeholder="Nombre(s)" />
+                <field name="apellido" placeholder="Apellido(s)" />
+                <field name="tipo_documento" />
+                <field name="no_documento" placeholder="No. de Documento" />
+                <field name="nit" />
+
+                <field name="fecha_nacimiento" placeholder="Fecha de Nacimiento" />
+                <field name="talla" />
+                <field name="telefono" placeholder="Teléfonos" />
+                <field name="correo" placeholder="Correo Eléctronico" />
+              </group>
+              <group>
+                <field name="empresa" placeholder="Nombre de compañia" />
+                <field name="nombre_facturacion" placeholder="Nombre de Facturación" />
+                <field name="dir_facturacion" placeholder="Dirección de Facturación" />
+                <field name="canal_distribucion" placeholder="Por favor seleccione" />
+                <field name="canal_facturacion" placeholder="Por favor seleccione" />
+                <field name="precio_unidad" placeholder="1.66" />
+                <field name="dias_validos_devolucion" />
+                <field name="cantidad_pedido" />
+                <field name="cantidad_flete" />
+                <field name="cantidad_promocion" />
+                <field name="estado" />
+                <field name="facturar_pedidos" />
+              </group>
+            </group>
+            <!-- Aquí se inicia el notebook (pestañas) -->
+            <notebook>
+              <page string="Sectores">
+                <field name="sector_ids">
+                  <tree editable="bottom">
+                    <field name="name" />
+                    <field name="ruta" />
+                    <field name="empresa_id" />
+                    <field name="publicacion_id" />
+                    <field name="tipo_publicacion_id" />
+                    <field name="tipo_portada_id" />
+                    <field name="estado" />
+                  </tree>
+                </field>
+              </page>
+              <!-- Puedes seguir agregando más páginas (pestañas) según lo necesites -->
+
+              <page string="Crear Ruta">
+                <field name="ruta_ids" />
+              </page>
+
+              <!-- Puedes seguir agregando más páginas (pestañas) según lo necesites -->
+            </notebook>
+
+          </div>
+
+        </form>
+      </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="circulacion.cliente_kanban">
+      <field name="name">circulacion.cliente.kanban</field>
+      <field name="model">circulacion.cliente</field>
+      <field name="arch" type="xml">
+        <kanban class="o_kanban_mobile" sample="1">
+          <templates>
+            <t t-name="kanban-box">
+              <div class="oe_kanban_global_click card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                  <strong class="text-primary">
+                    <field name="name" />
+                    <span> </span>
+                    <field name="apellido" />
+                  </strong>
+                  <span class="me-0">
+                    <field name="fotografia" widget="image" options="{'size': (75, 75)}"
+                      style="max-width:75px; max-height:75px; object-fit:cover;" />
+                  </span>
+                </div>
+
+                <div class="card-body">
+
+                  <div class="mt-2">
+                    <i class="fa fa-phone me-2"> </i>
+                    <field name="telefono" />
+                  </div>
+                  <div class="mt-2">
+                    <i class="fa fa-id-card me-2"></i>
+                    <field name="nit" />
+                  </div>
+                  <div class="mt-2">
+                    <i class="fa fa-building me-2"></i>
+                    <field name="empresa" />
+                  </div>
+                  <div class="mt-2">
+                    <i class="fa"></i>
+                    <field name="canal_distribucion" />
+                  </div>
+                </div>
+                <div class="card-footer">
+
+                  <strong class="text-info">Estado: </strong>
+                  <field name="estado" />
+
+
+                </div>
+              </div>
+            </t>
+          </templates>
+        </kanban>
+      </field>
+    </record>
+
+
+    <!-- Sector -->
+    <record model="ir.ui.view" id="circulacion.sector_list">
+      <field name="name">sector list</field>
+      <field name="model">circulacion.sector</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name" />
+          <field name="ruta" />
+          <field name="empresa_id" />
+          <field name="publicacion_id" />
+          <field name="tipo_publicacion_id" />
+          <field name="tipo_portada_id" />
+          <field name="estado" />
+
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="circulacion.sector_kanban">
+      <field name="name">circulacion.sector.kanban</field>
+      <field name="model">circulacion.sector</field>
+      <field name="arch" type="xml">
+        <kanban class="o_kanban_mobile" sample="1">
+          <templates>
+            <t t-name="kanban-box">
+              <div class="oe_kanban_global_click card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+
+                  <strong class="text-primary">
+
+                    <field name="name" />
+                  </strong>
+                </div>
+
+                <div class="card-body">
+
+                  <div class="mt-2">
+                    <i class="fa fa-map-marker me-2"> </i>
+                    <field name="city_id" />
+                  </div>
+                  <div class="mt-2">
+                    <i class="fa fa-location-arrow me-2"></i>
+                    <field name="ruta" />
+                  </div>
+                  <div class="mt-2">
+                    <i class="fa fa-user me-2"></i>
+                    <field name="cliente" />
+                  </div>
+                  <div class="mt-2">
+
+                    <field name="tipo_publicacion_id" />
+                  </div>
+                </div>
+                <div class="card-footer">
+
+                  <strong class="text-info">Empresa: </strong>
+                  <field name="empresa_id" />
+
+                </div>
+              </div>
+            </t>
+          </templates>
+        </kanban>
+      </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="circulacion.sector_form">
+      <field name="name">Sector Form</field>
+      <field name="model">circulacion.sector</field>
+      <field name="arch" type="xml">
+        <form>
+          <notebook>
+            <page string="Información General">
+              <div class="modal-content"
+                style="box-shadow: 0px 0px 10px 0px #888888; opacity: 0.7; padding: 20px;">
+                <group>
+                  <separator string="Datos Generales" class="text-center fw-bold fs-1" />
+                  <group>
+                    <field name="name" />
+                    <field name="calle_avenida" />
+                    <field name="no_casa" />
+                    <field name="no_apartamento" />
+                    <field name="zona" />
+                    <field name="colonia_barrio_aldea" />
+                    <field name="country_id" placeholder="Por favor seleccione" />
+                    <field name="state_id" domain="[('country_id','=',country_id)]"
+                      placeholder="Por favor seleccione" />
+                    <field name="city_id" domain="[('state_id','=',state_id)]"
+                      placeholder="Por favor seleccione" />
+                    <field name="ruta" domain="[('city_id','=',city_id)]"
+                      placeholder="Por favor seleccione" />
+                    <field name="orden_ruta" />
+                    <field name="tipo_direccion" />
+
+
+                  </group>
+                  <group>
+                    <!-- <field name="id_cliente" placeholder="Por favor seleccione" readonly="1" /> -->
+                    <field name="cliente" placeholder="Por favor seleccione" />
+                    <field name="cliente_info" readonly="1" />
+                    <field name="estado" readonly="1"
+                      options="{'string': 'Estado (Mayúsculas)', 'format': 'capitalize'}" />
+                    <field name="empresa_id" placeholder="Por favor seleccione" />
+                    <field name="publicacion_id" placeholder="Por favor seleccione" />
+                    <field name="tipo_publicacion_id"
+                      domain="[('publicacion_id','=',publicacion_id)]"
+                      placeholder="Por favor seleccione" />
+                    <field name="tipo_portada_id" domain="[('publicacion_id','=',publicacion_id)]"
+                      placeholder="Por favor seleccione" />
+                    <field name="asesor" placeholder="Por favor seleccione" />
+                    <field name="no_voceadores" />
+                    <field name="anotaciones" />
+
+                  </group>
+                </group>
+              </div>
+            </page>
+            <page string="Configuración">
+
+              <div class="modal-content"
+                style="box-shadow: 0px 0px 10px 0px #888888; opacity: 0.7; padding: 20px;">
+                <separator string="Datos Configuracion" class="text-center fw-bold fs-1" />
+                <group>
+                  <group>
+                    <field name="tasa_devolucion" />
+                    <field name="dias_valido_devolucion" />
+                    <field name="cantidad_pedido_ordinario" />
+                    <field name="cantidad_flete" />
+                  </group>
+                  <group>
+                    <field name="cantidad_promocion" />
+                    <field name="supervisor" />
+                    <field name="transportista" />
+                    <field name="cobrador" />
+                  </group>
+                </group>
+
+              </div>
+            </page>
+          </notebook>
+
+        </form>
+      </field>
+    </record>
+
+
+    <!-- Asesor -->
+    <record model="ir.ui.view" id="circulacion.asesor_form">
+      <field name="name">Asesor Form</field>
+      <field name="model">circulacion.asesor</field>
+      <field name="arch" type="xml">
+        <form>
+          <div class="modal-content"
+            style="box-shadow: 0px 0px 10px 0px #888888; opacity: 0.7; padding: 20px;">
+            <group>
+              <field name="name" />
+            </group>
+          </div>
+        </form>
+      </field>
+    </record>
+
+    <!-- Supervisor -->
+    <record model="ir.ui.view" id="circulacion.supervisor_form">
+      <field name="name">Supervisor Form</field>
+      <field name="model">circulacion.supervisor</field>
+      <field name="arch" type="xml">
+        <form string="Supervisor">
+          <div class="modal-content"
+            style="box-shadow: 0px 0px 10px 0px #888888; opacity: 0.7; padding: 20px;">
+            <group>
+              <field name="name" />
+            </group>
+          </div>
+        </form>
+      </field>
+    </record>
+
+    <!-- Transportista -->
+    <record model="ir.ui.view" id="circulacion.transportista_form">
+      <field name="name">Transportista Form</field>
+      <field name="model">circulacion.transportista</field>
+      <field name="arch" type="xml">
+        <form string="Transportista">
+          <div class="modal-content"
+            style="box-shadow: 0px 0px 10px 0px #888888; opacity: 0.7; padding: 20px;">
+            <group>
+              <field name="name" />
+            </group>
+          </div>
+        </form>
+      </field>
+    </record>
+
+    <!-- Transportista -->
+    <record model="ir.ui.view" id="circulacion.cobrador_form">
+      <field name="name">Cobrador Form</field>
+      <field name="model">circulacion.cobrador</field>
+      <field name="arch" type="xml">
+        <form string="Cobrador">
+          <div class="modal-content"
+            style="box-shadow: 0px 0px 10px 0px #888888; opacity: 0.7; padding: 20px;">
+            <group>
+              <field name="name" />
+            </group>
+          </div>
+        </form>
+      </field>
+    </record>
+
+    <!-- Rutas -->
+    <record model="ir.ui.view" id="circulacion.ruta_form">
+      <field name="name">Ruta Form</field>
+      <field name="model">circulacion.ruta</field>
+      <field name="arch" type="xml">
+        <form string="Crear Ruta">
+          <div class="modal-content"
+            style="box-shadow: 0px 0px 10px 0px #888888; opacity: 0.7; padding: 20px;">
+            <group>
+              <field name="name" placeholder="Sector" />
+              <field name="state_id" />
+              <field name="city_id" />
+              <field name="cliente_id" />
+              <field name="lugar" placeholder="Pueblo/Aldea/Lugar Poblado" />
+              <field name="porcentaje" />
+            </group>
+          </div>
+        </form>
+      </field>
+    </record>
+
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="circulacion.action_cliente_window">
+      <field name="name">Clientes</field>
+      <field name="res_model">circulacion.cliente</field>
+      <field name="view_mode">tree,form,kanban</field>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="circulacion.action_sector_window">
+      <field name="name">Sectores</field>
+      <field name="res_model">circulacion.sector</field>
+      <field name="view_mode">tree,form,kanban</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="circulacion.action_asesor_window">
+      <field name="name">Asesores</field>
+      <field name="res_model">circulacion.asesor</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="circulacion.action_supervisor_window">
+      <field name="name">Supervisores</field>
+      <field name="res_model">circulacion.supervisor</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="circulacion.action_transportista_window">
+      <field name="name">Transportista</field>
+      <field name="res_model">circulacion.transportista</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="circulacion.action_cobrador_window">
+      <field name="name">Cobrador</field>
+      <field name="res_model">circulacion.cobrador</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="circulacion.action_server">
+      <field name="name">circulacion server</field>
+      <field name="model_id" ref="model_circulacion_circulacion"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+
+    <menuitem name="Circulacion" id="circulacion.menu_root" />
+
+    <!-- menu categories -->
+
+    <menuitem name="Circulacion" id="circulacion.menu_1" parent="circulacion.menu_root" />
+    <!-- <menuitem name="Menu 2" id="circulacion.menu_2" parent="circulacion.menu_root"/> -->
+
+    <!-- actions -->
+
+    <menuitem name="Clientes" id="circulacion.menu_1_cliente_list" parent="circulacion.menu_1"
+      action="circulacion.action_cliente_window" />
+
+    <menuitem name="Sector" id="circulacion.menu_1_sector_list" parent="circulacion.menu_1"
+      action="circulacion.action_sector_window" />
+
+    <menuitem name="Asesor" id="circulacion.menu_1_asesor_list" parent="circulacion.menu_1"
+      action="circulacion.action_asesor_window" />
+
+
+    <menuitem name="Supervisor" id="circulacion.menu_1_supervisor_list"
+      parent="circulacion.menu_1"
+      action="circulacion.action_supervisor_window" />
+
+    <menuitem name="Transportista" id="circulacion.menu_1_transportista_list"
+      parent="circulacion.menu_1"
+      action="circulacion.action_transportista_window" />
+
+    <menuitem name="Cobrador" id="circulacion.menu_1_cobrador_list"
+      parent="circulacion.menu_1"
+      action="circulacion.action_cobrador_window" />
+    <!-- <menuitem name="Server to list" id="circulacion" parent="circulacion.menu_2"
+              action="circulacion.action_server"/> -->
+
+  </data>
+</odoo>

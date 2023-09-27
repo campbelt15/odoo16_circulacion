@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Vista formulario para circulacion.ordenes -->
+
+        <record model="ir.ui.view" id="circulacion.cuenta_ordenes_list">
+            <field name="name">circulacion ordenes list</field>
+            <field name="model">circulacion.ordenes</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="cliente" string="Nombre" />
+                    <field name="cliente_info" />
+                    <field name="sector_id" />
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="view_ordenes_form" model="ir.ui.view">
+            <field name="name">circulacion.ordenes.form</field>
+            <field name="model">circulacion.ordenes</field>
+            <field name="arch" type="xml">
+                <form string="Orden">
+                    <sheet>
+                        <group>
+                            <field name="cliente" string="Nombre" />
+                            <field name="cliente_info" />
+                            <field name="sector_id" />
+
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Puedes agregar una acción y un menú si aún no los tienes -->
+        <record id="circulacion.action_ordenes_window" model="ir.actions.act_window">
+            <field name="name">Ordenes</field>
+            <field name="res_model">circulacion.ordenes</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem name="Operaciones Rapidas" id="circulacion.ordenes_menu_1"
+            parent="circulacion.menu_root" />
+        <menuitem id="circulacion.menu_1_ordenes_list" name="Ordenes"
+            parent="circulacion.ordenes_menu_1" action="circulacion.action_ordenes_window" />
+
+    </data>
+</odoo>
